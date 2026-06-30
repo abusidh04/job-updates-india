@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Base layer: site-wide defaults for the white/blue theme.
+ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface text-slate-800 antialiased;
+  }
+
+  /* Consistent, accessible focus states across the site */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-semibold tracking-tight text-slate-900;
+  }
+}
+
+/**
+ * Components layer: small reusable class combinations used across
+ * multiple components (job cards, buttons, badges, inputs).
+ * Keeping these here avoids repeating long className strings everywhere.
+ */
+@layer components {
+  /* Primary CTA button — used for "Apply Now", "Add Job", form submits */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-card
+      bg-brand-700 px-4 py-2.5 text-sm font-medium text-white
+      shadow-sm transition-colors hover:bg-brand-800
+      disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  /* Secondary/outline button — used for "View Details", "Cancel" */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-card
+      border border-surface-border bg-white px-4 py-2.5 text-sm font-medium
+      text-slate-700 transition-colors hover:bg-surface-muted
+      disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  /* Standard card surface used for job cards, dashboard panels, forms */
+  .card {
+    @apply rounded-card border border-surface-border bg-white shadow-card
+      transition-shadow hover:shadow-card-hover;
+  }
+
+  /* Form input styling — shared across SearchBar and admin Add/Edit Job forms */
+  .form-input {
+    @apply w-full rounded-card border border-surface-border bg-white px-3.5 py-2.5
+      text-sm text-slate-800 placeholder:text-slate-400
+      focus:border-brand-500 focus:outline-none;
+  }
+
+  .form-label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700;
+  }
+
+  .form-error {
+    @apply mt-1 text-xs text-red-600;
+  }
+
+  /* Small status pill, e.g. job type badge (Full-time, Remote, Internship) */
+  .badge {
+    @apply inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1
+      text-xs font-medium text-brand-700;
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    /* Language & environment */
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "preserve",
+
+    /* Modules */
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    /* Interop & strictness */
+    "allowJs": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+
+    /* Next.js specific */
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
+    /* Path aliases — lets us import like "@/components/Navbar"
+       instead of relative paths like "../../components/Navbar" */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
