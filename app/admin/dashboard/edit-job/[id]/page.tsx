@@ -10,24 +10,6 @@ import { auth } from "@/lib/firebase";
 import { getJobById, updateJob } from "@/lib/jobService";
 import type { JobType, JobSource } from "@/types/job";
 
-/* -------------------------------------------------------------------------- */
-/* Zod schema — identical to Add Job so both forms stay in sync               */
-/* -------------------------------------------------------------------------- */
-const jobSchema = z.object({
-  title: z.string().min(3, "Job title must be at least 3 characters"),
-  company: z.string().min(2, "Company name must be at least 2 characters"),
-  location: z.string().min(2, "Location is required"),
-  experience: z.string().min(1, "Experience is required"),
-  salary: z.string().optional(),
-  jobType: z.enum(["Full-time", "Part-time", "Internship", "Contract", "Remote", "Walk-in"]),
-  description: z.string().min(50, "Description must be at least 50 characters"),
-  skills: z.string().min(1, "Enter at least one skill"),
-  applyLink: z.string().url("Enter a valid URL (include https://)"),
-  source: z.enum(["LinkedIn", "Naukri", "Indeed", "Company Website", "Other"]),
-  logo: z.string().url("Enter a valid logo URL (include https://)").or(z.literal("")),
-  postedAt: z.string().min(1, "Posted date is required"),
-});
-
 interface JobFormValues {
   title: string;
   company: string;
