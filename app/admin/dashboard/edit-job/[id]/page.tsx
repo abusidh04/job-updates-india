@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { onAuthStateChanged } from "firebase/auth";
 import { Pencil, ArrowLeft, AlertCircle, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
@@ -30,7 +28,20 @@ const jobSchema = z.object({
   postedAt: z.string().min(1, "Posted date is required"),
 });
 
-type JobFormValues = z.infer<typeof jobSchema>;
+interface JobFormValues {
+  title: string;
+  company: string;
+  location: string;
+  experience: string;
+  salary: string;
+  jobType: string;
+  description: string;
+  skills: string;
+  applyLink: string;
+  source: string;
+  logo: string;
+  postedAt: string;
+}
 
 const JOB_TYPES: JobType[] = [
   "Full-time", "Part-time", "Internship", "Contract", "Remote", "Walk-in",
@@ -70,10 +81,7 @@ export default function EditJobPage() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<JobFormValues>({
-    resolver: zodResolver(jobSchema),
-  });
+  } = useForm<JobFormValues>();
 
   /* Fetch job and pre-fill form */
   useEffect(() => {
@@ -123,16 +131,27 @@ export default function EditJobPage() {
     setIsSubmitting(true);
     try {
       const skillsArray = values.skills
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
+        ? values.skills
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean)
+        : [];
 
       await updateJob(jobId, {
-        ...values,
-        skills: skillsArray,
+        title: values.title || "",
+        company: values.company || "",
+        location: values.location || "",
+        experience: values.experience || "",
         salary: values.salary || undefined,
+        jobType: (values.jobType as any) || "Full-time",
+        description: values.description || "",
+        skills: skillsArray,
+        applyLink: values.applyLink || "",
+        source: (values.source as any) || "Other",
         logo: values.logo || "",
-        postedAt: new Date(values.postedAt).toISOString(),
+        postedAt: values.postedAt
+          ? new Date(values.postedAt).toISOString()
+          : new Date().toISOString(),
       });
 
       showToast("Job updated successfully!", "success");
@@ -206,7 +225,7 @@ export default function EditJobPage() {
           {/* Row 1: Title + Company */}
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
-              <label className="form-label">Job Title *</label>
+              <label className="form-label">Job Title</label>
               <input
                 type="text"
                 placeholder="e.g. Frontend Developer"
@@ -216,7 +235,7 @@ export default function EditJobPage() {
               {errors.title && <p className="form-error">{errors.title.message}</p>}
             </div>
             <div>
-              <label className="form-label">Company *</label>
+              <label className="form-label">Company</label>
               <input
                 type="text"
                 placeholder="e.g. Infosys"
@@ -230,7 +249,7 @@ export default function EditJobPage() {
           {/* Row 2: Location + Experience */}
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
-              <label className="form-label">Location *</label>
+              <label className="form-label">Location</label>
               <input
                 type="text"
                 placeholder="e.g. Bangalore / Remote"
@@ -240,7 +259,7 @@ export default function EditJobPage() {
               {errors.location && <p className="form-error">{errors.location.message}</p>}
             </div>
             <div>
-              <label className="form-label">Experience *</label>
+              <label className="form-label">Experience</label>
               <input
                 type="text"
                 placeholder="e.g. 0-1 years / Fresher"
@@ -264,7 +283,7 @@ export default function EditJobPage() {
               {errors.salary && <p className="form-error">{errors.salary.message}</p>}
             </div>
             <div>
-              <label className="form-label">Job Type *</label>
+              <label className="form-label">Job Type</label>
               <select className="form-input" {...register("jobType")}>
                 {JOB_TYPES.map((type) => (
                   <option key={type} value={type}>{type}</option>
@@ -276,7 +295,7 @@ export default function EditJobPage() {
 
           {/* Description */}
           <div>
-            <label className="form-label">Job Description *</label>
+            <label className="form-label">Job Description</label>
             <textarea
               rows={5}
               placeholder="Describe the role, responsibilities, and requirements…"
@@ -302,7 +321,7 @@ export default function EditJobPage() {
           {/* Row 4: Apply Link + Source */}
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
-              <label className="form-label">Apply Link *</label>
+              <label className="form-label">Apply Link</label>
               <input
                 type="url"
                 placeholder="https://linkedin.com/jobs/..."
@@ -312,7 +331,7 @@ export default function EditJobPage() {
               {errors.applyLink && <p className="form-error">{errors.applyLink.message}</p>}
             </div>
             <div>
-              <label className="form-label">Source *</label>
+              <label className="form-label">Source</label>
               <select className="form-input" {...register("source")}>
                 {JOB_SOURCES.map((src) => (
                   <option key={src} value={src}>{src}</option>
@@ -335,7 +354,7 @@ export default function EditJobPage() {
               {errors.logo && <p className="form-error">{errors.logo.message}</p>}
             </div>
             <div>
-              <label className="form-label">Posted Date *</label>
+              <label className="form-label">Posted Date</label>
               <input
                 type="date"
                 className="form-input"
