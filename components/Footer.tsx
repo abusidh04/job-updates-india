@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Briefcase, Linkedin, Mail, Twitter } from "lucide-react";
+import { Briefcase, Linkedin, Mail, Instagram } from "lucide-react";
 
 /**
  * Site-wide footer.
@@ -49,7 +49,7 @@ export default function Footer() {
                 aria-label="Follow us on Instagram"
                 className="flex h-9 w-9 items-center justify-center rounded-card border border-surface-border bg-white text-slate-600 hover:border-brand-300 hover:text-brand-700"
               >
-                <Twitter size={16} />
+                <Instagram size={16} />
               </a>
 
               <a
