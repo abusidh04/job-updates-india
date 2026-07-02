@@ -37,7 +37,7 @@ export default function PrivacyPage() {
 
         <section>
           <h2 className="text-lg font-semibold text-slate-900 mb-2">7. Contact Us</h2>
-          <p>If you have any questions about this Privacy Policy, contact us at: <a href="mailto:contact@jobsin.vercel.app" className="text-brand-700 hover:underline">contact@jobsin.vercel.app</a></p>
+          <p>If you have any questions about this Privacy Policy, contact us at: <a href="mailto:abusidh05@gmail.com" className="text-brand-700 hover:underline">abusidh05@gmail.com</a></p>
         </section>
 
         <section>
