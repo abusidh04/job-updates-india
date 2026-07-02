@@ -1,23 +1,14 @@
 import Link from "next/link";
-import {
-  TrendingUp,
-  Sparkles,
-  Clock,
-  ArrowRight,
-  Laptop,
-  GraduationCap,
-  Building2,
-  MapPinned,
-} from "lucide-react";
+import { TrendingUp, Sparkles, Clock, ArrowRight, Laptop, GraduationCap, Building2, MapPinned } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import JobCard from "@/components/JobCard";
 import GoogleAd from "@/components/GoogleAd";
-import {
-  getFeaturedJobs,
-  getLatestJobs,
-  getTotalJobsCount,
-} from "@/lib/jobService";
+import { getFeaturedJobs, getLatestJobs, getTotalJobsCount } from "@/lib/jobService";
 
+/**
+ * Quick category shortcuts shown below the hero.
+ * Icons chosen to visually distinguish each job category at a glance.
+ */
 const CATEGORY_SHORTCUTS = [
   { label: "Remote Jobs", href: "/category/Remote", icon: Laptop },
   { label: "Internships", href: "/category/Internship", icon: GraduationCap },
@@ -25,27 +16,25 @@ const CATEGORY_SHORTCUTS = [
   { label: "Walk-in Drives", href: "/category/Walk-in", icon: MapPinned },
 ];
 
+/**
+ * Homepage — Server Component.
+ * Fetches featured + latest jobs directly from Firestore at request time
+ * (Next.js will cache/revalidate this per the route's caching config),
+ * so the page is fast and fully server-rendered for SEO.
+ */
 export default async function HomePage() {
-  let featuredJobs = [];
-  let latestJobs = [];
-  let totalJobs = 0;
-
-  try {
-    const [featured, latest, total] = await Promise.all([
-      getFeaturedJobs(6),
-      getLatestJobs(8),
-      getTotalJobsCount(),
-    ]);
-    featuredJobs = featured;
-    latestJobs = latest;
-    totalJobs = total;
-  } catch (error) {
-    console.error("Failed to fetch jobs:", error);
-  }
+  // Fetch in parallel for faster page load
+  const [featuredJobs, latestJobs, totalJobs] = await Promise.all([
+    getFeaturedJobs(6),
+    getLatestJobs(8),
+    getTotalJobsCount(),
+  ]);
 
   return (
     <div>
-      {/* Hero section */}
+      {/* ---------------------------------------------------------------- */}
+      {/* Hero section                                                     */}
+      {/* ---------------------------------------------------------------- */}
       <section className="border-b border-surface-border bg-gradient-to-b from-brand-50 to-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
@@ -54,8 +43,7 @@ export default async function HomePage() {
               {totalJobs}+ jobs live right now
             </span>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-              Find Your Next Job,{" "}
-              <span className="text-brand-700">Faster</span>
+              Find Your Next Job, <span className="text-brand-700">Faster</span>
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base text-slate-600 sm:text-lg">
               Daily updated job openings across India — full-time, remote,
@@ -78,28 +66,28 @@ export default async function HomePage() {
                 <span className="flex h-9 w-9 items-center justify-center rounded-card bg-brand-50 text-brand-700">
                   <Icon size={18} />
                 </span>
-                <span className="text-sm font-medium text-slate-700">
-                  {label}
-                </span>
+                <span className="text-sm font-medium text-slate-700">{label}</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Header ad slot */}
+      {/* ---------------------------------------------------------------- */}
+      {/* Header ad slot                                                   */}
+      {/* ---------------------------------------------------------------- */}
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <GoogleAd slotType="header" />
       </div>
 
-      {/* Featured jobs */}
+      {/* ---------------------------------------------------------------- */}
+      {/* Featured jobs                                                    */}
+      {/* ---------------------------------------------------------------- */}
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <TrendingUp className="text-brand-700" size={22} />
-            <h2 className="text-xl font-semibold sm:text-2xl">
-              Featured Jobs
-            </h2>
+            <h2 className="text-xl font-semibold sm:text-2xl">Featured Jobs</h2>
           </div>
           <Link
             href="/jobs"
@@ -120,12 +108,16 @@ export default async function HomePage() {
         )}
       </section>
 
-      {/* In-feed ad slot */}
+      {/* ---------------------------------------------------------------- */}
+      {/* In-feed ad slot                                                  */}
+      {/* ---------------------------------------------------------------- */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <GoogleAd slotType="in-feed" />
       </div>
 
-      {/* Latest jobs */}
+      {/* ---------------------------------------------------------------- */}
+      {/* Latest jobs                                                      */}
+      {/* ---------------------------------------------------------------- */}
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -151,7 +143,9 @@ export default async function HomePage() {
         )}
       </section>
 
-      {/* Footer ad slot */}
+      {/* ---------------------------------------------------------------- */}
+      {/* Footer ad slot                                                   */}
+      {/* ---------------------------------------------------------------- */}
       <div className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
         <GoogleAd slotType="footer" />
       </div>
@@ -159,6 +153,7 @@ export default async function HomePage() {
   );
 }
 
+/** Simple empty-state message shown when a job section has no results. */
 function EmptyState({ message }: { message: string }) {
   return (
     <div className="card flex flex-col items-center justify-center px-6 py-12 text-center">
