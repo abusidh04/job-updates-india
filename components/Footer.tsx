@@ -98,6 +98,11 @@ export default function Footer() {
                   About Us
                 </Link>
               </li>
+              <li>
+                <Link href="/contact" className="hover:text-brand-600">
+                Contact Us
+                </Link>
+              </li>
               
             </ul>
           </div>
