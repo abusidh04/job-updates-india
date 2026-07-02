@@ -43,17 +43,17 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://twitter.com"
+                href="https://www.instagram.com/job_updates_in"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow us on Twitter"
+                aria-label="Follow us on Instagram"
                 className="flex h-9 w-9 items-center justify-center rounded-card border border-surface-border bg-white text-slate-600 hover:border-brand-300 hover:text-brand-700"
               >
-                <Twitter size={16} />
+                <Instagram size={16} />
               </a>
 
               <a
-                href="mailto:contact@jobupdatesindia.com"
+                href="mailto:abusidh05@gmail.com"
                 aria-label="Email us"
                 className="flex h-9 w-9 items-center justify-center rounded-card border border-surface-border bg-white text-slate-600 hover:border-brand-300 hover:text-brand-700"
               >
