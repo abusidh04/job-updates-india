@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Briefcase, Menu, X } from "lucide-react";
+import Image from "next/image";
 
 /**
  * Primary navigation links shown across the public site.
@@ -28,12 +29,15 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo / brand */}
         <Link href="/" className="flex items-center gap-2" aria-label="Job Updates India home">
-          <span className="flex h-9 w-9 items-center justify-center rounded-card bg-brand-700 text-white">
-            <Briefcase size={18} strokeWidth={2.25} />
-          </span>
-          <span className="text-lg font-bold text-slate-900">
-            Job Updates <span className="text-brand-700">India</span>
-          </span>
+            <Image
+              src="/logo.png"
+              alt="Job Updates India"
+              width={40}
+              height={40}
+              className="rounded-card"/>
+<span className="text-lg font-bold text-slate-900">
+  Job Updates <span className="text-brand-700">India</span>
+</span>
         </Link>
 
         {/* Desktop nav links */}
