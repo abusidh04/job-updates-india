@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Briefcase, Linkedin, Mail, Instagram } from "lucide-react";
 
 /**
@@ -16,12 +17,15 @@ export default function Footer() {
           {/* Brand + description */}
           <div>
             <Link href="/" className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-card bg-brand-700 text-white">
-                <Briefcase size={18} strokeWidth={2.25} />
-              </span>
-              <span className="text-lg font-bold text-slate-900">
-                Job Updates <span className="text-brand-700">India</span>
-              </span>
+              <Image
+                src="/logo.png"
+                alt="Job Updates India"
+                width={40}
+                height={40}
+                className="rounded-card"/>
+                <span className="text-lg font-bold text-slate-900">
+                    Job Updates <span className="text-brand-700">India</span>
+                </span>
             </Link>
 
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
