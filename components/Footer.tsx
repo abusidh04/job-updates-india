@@ -37,7 +37,7 @@ export default function Footer() {
             {/* Social links */}
             <div className="mt-4 flex gap-3">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/abusidh05/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on LinkedIn"
