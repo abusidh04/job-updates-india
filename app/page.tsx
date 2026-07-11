@@ -4,6 +4,7 @@ import SearchBar from "@/components/SearchBar";
 import JobCard from "@/components/JobCard";
 import GoogleAd from "@/components/GoogleAd";
 import { getFeaturedJobs, getLatestJobs, getTotalJobsCount } from "@/lib/jobService";
+import Script from "next/script";
 
 /**
  * Quick category shortcuts shown below the hero.
