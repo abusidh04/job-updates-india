@@ -4,7 +4,6 @@ import SearchBar from "@/components/SearchBar";
 import JobCard from "@/components/JobCard";
 import GoogleAd from "@/components/GoogleAd";
 import { getFeaturedJobs, getLatestJobs, getTotalJobsCount } from "@/lib/jobService";
-import Script from "next/script";
 
 /**
  * Quick category shortcuts shown below the hero.
@@ -80,20 +79,6 @@ export default async function HomePage() {
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <GoogleAd slotType="header" />
       </div>
-
-      <Script id="monetag-home" strategy="afterInteractive">
-  {`
-    (function(s){
-      s.dataset.zone='11268792';
-      s.src='https://nap5k.com/tag.min.js';
-    })(
-      [document.documentElement, document.body]
-        .filter(Boolean)
-        .pop()
-        .appendChild(document.createElement('script'))
-    );
-  `}
-</Script>
 
     
 
