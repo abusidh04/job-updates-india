@@ -4,6 +4,7 @@ import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
+import Script from "next/script";
 
 /**
  * Self-hosted Google Font via next/font — avoids an extra network request
@@ -112,6 +113,9 @@ export default function RootLayout({
             strategy="afterInteractive"
           />
         )}
+
+        <script src="https://quge5.com/88/tag.min.js" data-zone="258404" async data-cfasync="false"></script>
+        
       </body>
     </html>
   );
